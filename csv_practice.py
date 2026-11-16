@@ -49,61 +49,61 @@ print(f"Wrote {len(high_value)} high_value orders to cleaned.csv")
 
 # --- Exercise 6:csv. DictReader ---
 
-processed_dict = []
+# processed_dict = []
 
-with open("data/sales.csv", "r") as f:
-    reader = csv.DictReader(f)
+# with open("data/sales.csv", "r") as f:
+#     reader = csv.DictReader(f)
 
-    for row in reader:
-        product = row["product"]
-        price = float(row["price"])
-        qty = int(row["quantity"])
-        total = price * qty
-        processed_dict.append({"product": product, "price": price, "qty": qty, "total": total})
+#     for row in reader:
+#         product = row["product"]
+#         price = float(row["price"])
+#         qty = int(row["quantity"])
+#         total = price * qty
+#         processed_dict.append({"product": product, "price": price, "qty": qty, "total": total})
 
-print(f"{'Product':<20} {'Price':>10} {'Qty':>5} {'Total':>10}")
-for r in processed_dict:
-    print(f"{r['product']:<20} {r['price']:>10.2f} {r['qty']:>5} {r['total']:>10.2f}")
+# print(f"{'Product':<20} {'Price':>10} {'Qty':>5} {'Total':>10}")
+# for r in processed_dict:
+#     print(f"{r['product']:<20} {r['price']:>10.2f} {r['qty']:>5} {r['total']:>10.2f}")
 
-overall_total_dict = sum(r["total"] for r in processed_dict)
-print(f"{'Overall Total':>46} {overall_total_dict:>10.2f}")
-# csv.reader returns an iterator over the rows of a csv file and each row is a list of strings. I would use this one when I have files with less columns.
-# compared to csv. DictReader which is like csv.reader but returns each row as a dictionary using the first row as keys. I would prefer to use this one when when I have files with many columns. 
-# --- Exercise 7: Sales summary by product
+# overall_total_dict = sum(r["total"] for r in processed_dict)
+# print(f"{'Overall Total':>46} {overall_total_dict:>10.2f}")
+# # csv.reader returns an iterator over the rows of a csv file and each row is a list of strings. I would use this one when I have files with less columns.
+# # compared to csv. DictReader which is like csv.reader but returns each row as a dictionary using the first row as keys. I would prefer to use this one when when I have files with many columns. 
+# # --- Exercise 7: Sales summary by product
 
-summary = {}
+# summary = {}
 
-with open("data/sales.csv", "r", newline="") as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-        product = row["product"]
-        price = float(row["price"])
-        qty = int(row["quantity"])
-        total = price * qty
-        if product in summary:
-            summary[product]["total"] += total
-            summary[product]["qty"] += qty
-        else:
-            summary[product] = {"total": total, "qty": qty}
+# with open("data/sales.csv", "r", newline="") as f:
+#     reader = csv.DictReader(f)
+#     for row in reader:
+#         product = row["product"]
+#         price = float(row["price"])
+#         qty = int(row["quantity"])
+#         total = price * qty
+#         if product in summary:
+#             summary[product]["total"] += total
+#             summary[product]["qty"] += qty
+#         else:
+#             summary[product] = {"total": total, "qty": qty}
 
-print(f"{'Product':<20} {'Total':>10} {'Qty':>5}")
-for product, data in summary.items():
-    print(f"{product:<20} {data['total']:>10.2f} {data['qty']:>5}")
+# print(f"{'Product':<20} {'Total':>10} {'Qty':>5}")
+# for product, data in summary.items():
+#     print(f"{product:<20} {data['total']:>10.2f} {data['qty']:>5}")
 
-# --- Exercise 8: Append mode log ---
-from datetime import datetime
+# # --- Exercise 8: Append mode log ---
+# from datetime import datetime
 
-total_revenue = 0.0
+# total_revenue = 0.0
 
-with open ("data/sales.csv", newline="") as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-        total_revenue += float(row["price"]) * int(row["quantity"])
+# with open ("data/sales.csv", newline="") as f:
+#     reader = csv.DictReader(f)
+#     for row in reader:
+#         total_revenue += float(row["price"]) * int(row["quantity"])
 
-timestamp = datetime.now()
-log_entry = f"{timestamp}: Total revenue generated: ${total_revenue:.2f}\n"
+# timestamp = datetime.now()
+# log_entry = f"{timestamp}: Total revenue generated: ${total_revenue:.2f}\n"
 
-with open("data/run_log.txt", "a") as f:
-    f.write(log_entry)
+# with open("data/run_log.txt", "a") as f:
+#     f.write(log_entry)
 
-print("Logged:", log_entry)
+# print("Logged:", log_entry)
